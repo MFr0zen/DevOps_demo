@@ -48,6 +48,7 @@ jobs:
       - name: install dependencies
         run: |
             pip install pytest
+            pip install httpx
             if [ -f app/requirements.txt ]; then pip install -r app/requirements.txt; fi
       - name: Test with pytest
         run: |
