@@ -70,6 +70,6 @@ jobs:
       - name: Build and push image
         uses: docker/build-push-action@v5
         with:
-          contxt: .
+          context: .
           push: true
           tags: mfr0zen/devops_demo:latest
