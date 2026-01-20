@@ -48,7 +48,7 @@ jobs:
       - name: install dependencies
         run: |
             pip install pytest
-            if [ -f app/requirements.txt ]; then pip install -r app/requirements/txt; fi
+            if [ -f app/requirements.txt ]; then pip install -r app/requirements.txt; fi
       - name: Test with pytest
         run: |
             pytest
