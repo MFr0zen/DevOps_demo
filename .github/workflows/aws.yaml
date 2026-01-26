@@ -13,8 +13,8 @@ on:
         required: true
         
 env:
-  AWS_REGION: eu-central-1                   
-  ECR_REPOSITORY: devopsdemo_ecr_repo        
+  AWS_REGION: ${{ AWS_REGION }}       
+  ECR_REPOSITORY: ${{ ECR_REPOSITORY }}        
 
 jobs:
   deploy:
