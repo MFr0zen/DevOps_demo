@@ -27,9 +27,15 @@ jobs:
     uses: ./.github/workflows/docker-build.yaml
     with:
       image_tag: $git_image_tag
+    secrets:
+      DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+      DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
 
   aws:
     needs: test
     uses: ./.github/workflows/aws.yaml
     with:
       image_tag: $git_image_tag
+    secrets:
+      aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}

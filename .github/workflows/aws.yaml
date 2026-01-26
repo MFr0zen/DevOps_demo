@@ -6,7 +6,12 @@ on:
       image_tag:
         required: true
         type: string
-
+    secrets:
+      AWS_ACCESS_KEY_ID:
+        required: true
+      AWS_SECRET_ACCESS_KEY:
+        required: true
+        
 env:
   AWS_REGION: eu-central-1                   
   ECR_REPOSITORY: devopsdemo_ecr_repo        
