@@ -16,6 +16,11 @@ on:
       ECR_REPOSITORY:        
         required: true
 
+
+env:
+  AWS_REGION: ${{ secrets.AWS_REGION }}       
+  ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY }}   
+
 jobs:
   deploy:
     name: Deploy
