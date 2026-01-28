@@ -11,10 +11,15 @@ on:
         required: true
       AWS_SECRET_ACCESS_KEY:
         required: true
-        
+      AWS_REGION:
+        required: true 
+      ECR_REPOSITORY:        
+        required: true
+
+
 env:
-  AWS_REGION: eu-central-1                   
-  ECR_REPOSITORY: devopsdemo_ecr_repo        
+  AWS_REGION: ${{ secrets.AWS_REGION }}       
+  ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY }}   
 
 jobs:
   deploy:
