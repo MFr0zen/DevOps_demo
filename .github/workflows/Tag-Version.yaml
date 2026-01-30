@@ -1,0 +1,66 @@
+name: Tag on PR merge
+
+on:
+  pull_request:
+    types: [closed]
+    branches:
+      - main
+
+jobs:
+  version-tag:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Get next version
+        shell: bash
+        run: |
+          set -e
+
+          git fetch --tags
+
+          latest_tag=$(git tag --sort=-v:refname | head -n 1)
+
+          if [ -z "$latest_tag" ]; then
+            new_version="v1.0.0"
+          else
+            version=${latest_tag#v}
+            IFS='.' read -r major minor patch <<< "$version"
+            patch=$((patch + 1))
+            new_version="v${major}.${minor}.${patch}"
+          fi
+
+          echo "New version: $new_version"
+          echo "VERSION=$new_version" >> "$GITHUB_ENV"
+
+      - name: Create and push tag
+        shell: bash
+        run: |
+          set -e
+
+          git tag "$VERSION"
+          git push origin "$VERSION"
+  docker:
+      needs: test
+      uses: ./.github/workflows/docker-build.yaml
+      with:
+        image_tag: ${{ github.sha }} 
+      secrets:
+        DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+
+  aws:
+      needs: test
+      uses: ./.github/workflows/aws.yaml
+      with:
+        image_tag: ${{ github.sha }} 
+      secrets:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        AWS_REGION: ${{ secrets.AWS_REGION }}       
+        ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY }}  
