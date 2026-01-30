@@ -14,6 +14,9 @@ jobs:
     if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
 
+    outputs:
+      version: ${{ steps.get_version.outputs.version }}
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -39,16 +42,18 @@ jobs:
           fi
 
           echo "New version: $new_version"
-          echo "VERSION=$new_version" >> "$GITHUB_ENV"
+          echo "VERSION=$new_version" >> "$GITHUB_OUTPUT"
 
       - name: Create and push tag
         shell: bash
         run: |
           set -e
 
-          git tag "$VERSION"
-          git push origin "$VERSION"
+          git tag "${{ steps.get_version.outputs.version }}"
+          git push origin "${{ steps.get_version.outputs.version }}"
+
   build:
+    needs: version-tag
     uses: ./.github/workflows/build.yaml
     
   test:
@@ -56,19 +61,19 @@ jobs:
     uses: ./.github/workflows/test.yaml
 
   docker:
-      needs: test
+      needs: [version-tag, test]
       uses: ./.github/workflows/docker-build.yaml
       with:
-        image_tag: ${{ github.sha }} 
+        image_tag: ${{ needs.version-tag.outputs.version }}
       secrets:
         DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
         DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
 
   aws:
-      needs: test
+      needs: [version-tag, test]
       uses: ./.github/workflows/aws.yaml
       with:
-        image_tag: ${{ github.sha }} 
+            image_tag: ${{ needs.version-tag.outputs.version }} 
       secrets:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
