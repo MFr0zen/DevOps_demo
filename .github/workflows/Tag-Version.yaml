@@ -42,7 +42,7 @@ jobs:
           fi
 
           echo "New version: $new_version"
-          echo "VERSION=$new_version" >> "$GITHUB_OUTPUT"
+          echo "version=$new_version" >> "$GITHUB_OUTPUT"
 
       - name: Create and push tag
         shell: bash
