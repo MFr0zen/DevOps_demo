@@ -25,7 +25,7 @@ jobs:
 
       - name: Get next version
         id: get_version
-        hell: bash
+        shell: bash
         run: |
           set -e
 
