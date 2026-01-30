@@ -24,7 +24,8 @@ jobs:
           fetch-depth: 0
 
       - name: Get next version
-        shell: bash
+        id: get_version
+        hell: bash
         run: |
           set -e
 
