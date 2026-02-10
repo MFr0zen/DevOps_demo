@@ -57,7 +57,7 @@ jobs:
     - name: Update image version in SSM
       run: |
           aws ssm put-parameter \
-            --name "${{ secrets.versionTagParam }}" \
+            --name "${{ secrets.VERSIONTAGPARAM }}" \
             --value "$MAGE_TA" \
             --type String \
             --overwrite
