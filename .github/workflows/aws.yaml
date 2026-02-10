@@ -60,6 +60,6 @@ jobs:
       run: |
           aws ssm put-parameter \
             --name "${{ secrets.VERSIONTAGPARAM }}" \
-            --value "$IMAGE_TAG" \
+            --value "${{ inputs.image_tag }}" \
             --type String \
             --overwrite
