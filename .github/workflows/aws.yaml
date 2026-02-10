@@ -53,3 +53,11 @@ jobs:
         docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
         echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
+
+    - name: Update image version in SSM
+      run: |
+          aws ssm put-parameter \
+            --name "${{ secrets.versionTagParam }}" \
+            --value "$MAGE_TA" \
+            --type String \
+            --overwrite

@@ -1,0 +1,12 @@
+[Unit]
+Description=My devops demo app
+After=docker.service
+Requires=docker.service
+
+[Service]
+ExecStart=/usr/local/bin/deploy.sh
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target
