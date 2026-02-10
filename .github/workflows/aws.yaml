@@ -58,6 +58,6 @@ jobs:
       run: |
           aws ssm put-parameter \
             --name "${{ secrets.VERSIONTAGPARAM }}" \
-            --value "$MAGE_TA" \
+            --value "$MAGE_TAG" \
             --type String \
             --overwrite
