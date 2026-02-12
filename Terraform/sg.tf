@@ -27,13 +27,13 @@ resource "aws_security_group" "sg" {
 
 
 resource "aws_security_group" "ec2_sg" {
-  name   = local.ec2_sg_name
+  # name   = local.ec2_sg_name
   vpc_id = aws_vpc.main.id
 
   ingress {
-    from_port   = 8000
-    to_port     = 8000
-    protocol    = "tcp"
+    from_port       = 8000
+    to_port         = 8000
+    protocol        = "tcp"
     security_groups = [aws_security_group.sg.id]
   }
 
