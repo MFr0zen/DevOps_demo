@@ -27,7 +27,7 @@ resource "aws_security_group" "sg" {
 
 
 resource "aws_security_group" "ec2_sg" {
-  # name   = local.ec2_sg_name
+  name   = local.ec2_sg_name
   vpc_id = aws_vpc.main.id
 
   ingress {
