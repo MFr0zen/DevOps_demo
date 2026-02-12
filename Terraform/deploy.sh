@@ -2,13 +2,14 @@
 set -e
 
 REGION="${region}"
-ECR_REPO="${repository_url}"
+ECR_REPO="${ecr_repo_url}"
 CONTAINER_NAME="my-devOps-app"
 PORT=${app_port}
+image_tag_name=${image_tag}
 
 # github build_tag
 TAG=$(/usr/bin/aws ssm get-parameter \
-  --name "${image_tags_name}" \
+  --name "$image_tag_name" \
   --query "Parameter.Value" \
   --output text)
 
@@ -22,11 +23,8 @@ aws ecr get-login-password --region $REGION \
 docker pull $ECR_REPO:$TAG
 
 # Check running container
-if docker ps -q -f name=$CONTAINER_NAME; then
-  echo "Stopping old container..."
-  docker stop $CONTAINER_NAME
-  docker rm $CONTAINER_NAME
-fi
+docker stop "$CONTAINER_NAME" || true
+docker rm "$CONTAINER_NAME" || true
 
 # Run new container
 docker run -d \

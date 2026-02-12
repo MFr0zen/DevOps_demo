@@ -54,6 +54,6 @@ locals {
   app_port = 8000
 
   image_tags_name      = "/my-apps/demodevops/image_tag"
-  image_tags_value     = "v1.0.1"
+  image_tags_value     = "v1.0.2"
   image_tags_data_type = "text"
 }

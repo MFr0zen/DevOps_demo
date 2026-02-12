@@ -8,10 +8,10 @@ resource "aws_instance" "app" {
 
 
   user_data = templatefile("${path.module}/user_data.sh", {
-    region          = local.region
-    ecr_repo_url    = aws_ecr_repository.ecr_repo.repository_url #should use -> aws_ecr_repository.ecr_repo.ecr_repo_url  but first add ecr creation
-    app_port        = local.app_port
-    image_tags_name = local.image_tags_name
+    region       = local.region
+    ecr_repo_url = aws_ecr_repository.ecr_repo.repository_url #should use -> aws_ecr_repository.ecr_repo.ecr_repo_url  but first add ecr creation
+    app_port     = local.app_port
+    image_tag    = local.image_tags_name
   })
 
   tags = {
