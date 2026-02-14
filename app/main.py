@@ -7,7 +7,7 @@ VERSION = os.getenv("APP_VERSION", "1.0.0")
 
 @app.get("/")
 def root():
-    return {"message": "DevOps Demo App"}
+    return {"message": "DevOps Demo App - Test PR"}
 
 @app.get("/health")
 def health():
