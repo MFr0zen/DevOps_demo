@@ -6,10 +6,10 @@ resource "aws_subnet" "private" {
   availability_zone = each.value.availability_zone
 
   tags = {
-    Name                              = "${local.environment}-${each.value.prsubnet_name}"
-    environment                       = local.environment
-    Terraforn                         = "true"
-    "kubernetes.io/role/internal-elb" = "1"
-    "kubernetes.io/cluster/dev-demo"  = "owned"
+    Name                                              = "${local.environment}-${each.value.prsubnet_name}"
+    environment                                       = local.environment
+    Terraforn                                         = "true"
+    "kubernetes.io/role/internal-elb"                 = "1"
+    "kubernetes.io/cluster/${local.eks_cluster_name}" = "shared"
   }
 }

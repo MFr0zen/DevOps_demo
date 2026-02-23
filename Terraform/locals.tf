@@ -56,4 +56,11 @@ locals {
   image_tags_name      = "/my-apps/demodevops/image_tag"
   image_tags_value     = "v1.0.2"
   image_tags_data_type = "text"
+
+  eks_cluster_name         = "demo-eks-cluster"
+  eks_cluster_role_name    = "eks-cluster-role"
+  eks_node_role_name       = "eks-node-role"
+  nodegroup_name           = "eks-nodegroup"
+  app_irsa_role_name       = "demo-irsa-role"
+  github_actions_role_name = "demo-githubrole"
 }
