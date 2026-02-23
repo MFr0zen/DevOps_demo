@@ -78,4 +78,3 @@ jobs:
         kubectl apply -f k8s/
         kubectl set image deployment/devops-demo \
           app=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
-
