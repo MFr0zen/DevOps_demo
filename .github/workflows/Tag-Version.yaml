@@ -2,9 +2,7 @@ name: Tag On merge
 
 on:
   pull_request:
-    types: [closed]
-    branches:
-      - main
+    branches: [ "main" ]
 
 permissions:
   contents: write
