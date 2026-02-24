@@ -18,6 +18,9 @@ on:
       VERSIONTAGPARAM:
         required: true
 
+permissions:
+  id-token: write
+  contents: read
 
 env:
   AWS_REGION: ${{ secrets.AWS_REGION }}       
@@ -32,11 +35,10 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v4
 
-    - name: Configure AWS credentials
-      uses: aws-actions/configure-aws-credentials@v1
+    - name: Configure AWS credentials (OIDC)
+      uses: aws-actions/configure-aws-credentials@v4
       with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        role-to-assume: arn:aws:iam::724268664829:role/demo-githubrole
         aws-region: ${{ env.AWS_REGION }}
 
     - name: Login to Amazon ECR
@@ -63,3 +65,16 @@ jobs:
             --value "${{ inputs.image_tag }}" \
             --type String \
             --overwrite
+    
+    - name: Update kubeconfig
+      run: |
+        aws eks update-kubeconfig \
+          --region ${{ secrets.AWS_REGION }} \
+          --name devops-demo
+
+    - name: Deploy to EKS
+      run: |
+        kubectl apply -f k8s/
+        kubectl set image deployment/devops-demo \
+          app=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
+
