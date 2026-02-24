@@ -66,6 +66,8 @@ resource "aws_iam_openid_connect_provider" "github" {
   thumbprint_list = ["6938fd4d98bab03faadb97b34396831e3780aea1"]
 }
 
+
+
 resource "aws_eks_access_entry" "github_eks" {
   cluster_name  = aws_eks_cluster.eks_cluster.name
   principal_arn = aws_iam_role.github_actions_role.arn
