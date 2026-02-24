@@ -2,16 +2,15 @@ name: Tag On merge
 
 on:
   pull_request:
-    types: [closed]
-    branches:
-      - main
+    branches: [ "main" ]
 
 permissions:
+  id-token: write
   contents: write
 
 jobs:
   version-tag:
-    if: github.event.pull_request.merged == true
+    if: github.event.pull_request.merged == false
     runs-on: ubuntu-latest
 
     outputs:
