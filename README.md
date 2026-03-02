@@ -1,6 +1,6 @@
-# 🚀 Fully Automated Zero‑Downtime Deployment on AWS (Terraform + GitHub Actions)
+# 🚀 Fully Automated Deployment on AWS (Terraform + GitHub Actions)
 
-This repository demonstrates a **production‑style, fully automated deployment pipeline** that takes your application from **code push → tested → built → versioned → deployed** on AWS with **zero downtime**.
+This repository demonstrates a **production‑style, fully automated deployment pipeline** that takes your application from **code push → tested → built → versioned → deployed** on AWS.
 
 Everything is automated. No manual SSH. No manual deploys. No clicking in the AWS Console.
 
@@ -122,7 +122,7 @@ This tag becomes the **single source of truth** for deployments.
 
 ---
 
-## 🚢 Deployment on EC2 (Zero Downtime)
+## 🚢 Deployment on EC2
 
 ### First Deployment (Infrastructure Creation)
 
@@ -173,7 +173,7 @@ On EC2:
 
 ✅ Fully automated
 ✅ Infrastructure as Code
-✅ Zero downtime deployments
+✅ Short downtime deployments
 ✅ Safe rollouts using versioned images
 ✅ Production‑ready AWS architecture
 
